@@ -1,0 +1,2 @@
+#!/usr/bin/execlineb -S0
+s6-svwait -d -t 5000 /var/run/s6/services/frpc

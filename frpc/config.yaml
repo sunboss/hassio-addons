@@ -1,0 +1,48 @@
+name: "FRPC (sunboss)"
+slug: "frpc"
+description: "FRP client add-on supporting multiple servers and proxies."
+version: "1.0.0"
+arch:
+  - aarch64
+  - amd64
+  - armv7
+  - armhf
+  - i386
+startup: services
+boot: auto
+init: false
+# You can uncomment to use a container registry image in the future:
+image: "ghcr.io/sunboss/frpc-{arch}"
+options:
+  servers:
+    - name: main
+      server_addr: "frps.example.com"
+      server_port: 7000
+      token: ""
+      user: ""
+      log_level: info
+      proxies:
+        - name: "ssh"
+          type: "tcp"
+          local_ip: "127.0.0.1"
+          local_port: 22
+          remote_port: 6000
+schema:
+  servers:
+    - name: str
+      server_addr: str
+      server_port: int
+      token: str?
+      user: str?
+      log_level: list(info|warn|error|debug)?
+      proxies:
+        - name: str
+          type: list(tcp|udp|http|https|stcp|sudp|xtcp)
+          local_ip: str
+          local_port: int
+          remote_port: int?
+          subdomain: str?
+          custom_domains:
+            - str?
+          additional_params:
+            - str?
